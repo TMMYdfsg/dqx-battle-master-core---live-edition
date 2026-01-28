@@ -1,0 +1,8 @@
+{
+  "name": "DQX Battle Master Core - Live Edition",
+  "description": "DQXハイエンドバトル用 戦術解析・リアルタイム指揮官AIシステム。聖守護者、咎人、常闇の解析に特化。",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "boss_id": "boss_delme",
+  "boss_name": "邪蒼鎧デルメゼIV",
+  "version": "IV",
+  "total_hp_estimate": 500000,
+  "time_limit_seconds": 1200,
+  
+  "phases": [
+    {
+      "phase_id": "PHASE_1",
+      "phase_name": "開幕フェーズ",
+      "hp_threshold_min": 90,
+      "hp_threshold_max": 100,
+      "ai_type": "AI2",
+      "ai_count": 2,
+      "description": "AI2回行動。バフ構築の余裕あり。",
+      "priority_actions": ["リンク維持", "滅却", "雨の初動構築"],
+      "actions": [
+        { "name": "通常攻撃", "ai_slot": 1, "ct_value": 0, "damage": 450, "damage_type": "physical", "note": "ペチ" },
+        { "name": "ファントムボール", "ai_slot": 1, "ct_value": 10, "damage": 750, "damage_type": "magic" },
+        { "name": "コバルトウェーブ", "ai_slot": 2, "ct_value": 12, "damage": 850, "damage_type": "breath", "range": 7 },
+        { "name": "ターコイズブラスト", "ai_slot": 2, "ct_value": 15, "damage": 700, "damage_type": "breath", "range": 7 }
+      ]
+    },
+    {
+      "phase_id": "PHASE_2",
+      "phase_name": "AI3移行フェーズ",
+      "hp_threshold_min": 50,
+      "hp_threshold_max": 90,
+      "ai_type": "AI3",
+      "ai_count": 3,
+      "description": "AI3回行動開始。攻撃密度が劇的に上昇。AI3後の待機時間を狙う。",
+      "priority_actions": ["AIカウント徹底", "後出し行動厳守"],
+      "actions": [
+        { "name": "通常攻撃", "ai_slot": 1, "ct_value": 0, "damage": 450, "damage_type": "physical" },
+        { "name": "ファントムボール", "ai_slot": 1, "ct_value": 10, "damage": 750, "damage_type": "magic" },
+        { "name": "コバルトウェーブ", "ai_slot": 2, "ct_value": 12, "damage": 850, "damage_type": "breath" },
+        { "name": "ターコイズブラスト", "ai_slot": 2, "ct_value": 15, "damage": 700, "damage_type": "breath" },
+        { "name": "コールサファイア", "ai_slot": 3, "ct_value": 18, "damage": 0, "damage_type": "summon", "special": "no_turn_consume" },
+        { "name": "ファイナルレイ", "ai_slot": 3, "ct_value": 25, "damage": 900, "damage_type": "laser" }
+      ]
+    },
+    {
+      "phase_id": "PHASE_3",
+      "phase_name": "ジャッジメントフェーズ",
+      "hp_threshold_min": 25,
+      "hp_threshold_max": 50,
+      "ai_type": "AI3",
+      "ai_count": 3,
+      "description": "ジャッジメントブルー解禁。分散する災禍に注意。",
+      "priority_actions": ["散開準備", "玉管理強化"],
+      "actions": [
+        { "name": "通常攻撃", "ai_slot": 1, "ct_value": 0, "damage": 450, "damage_type": "physical" },
+        { "name": "ファントムボール", "ai_slot": 1, "ct_value": 10, "damage": 750, "damage_type": "magic" },
+        { "name": "ジャッジメントブルー", "ai_slot": 2, "ct_value": 30, "damage": 800, "damage_type": "ultimate", "mechanic": "scatter" },
+        { "name": "分散する災禍", "ai_slot": 2, "ct_value": 20, "damage": 600, "damage_type": "split", "mechanic": "stack" },
+        { "name": "コールサファイア", "ai_slot": 3, "ct_value": 18, "damage": 0, "damage_type": "summon", "special": "no_turn_consume" },
+        { "name": "ファイナルレイ", "ai_slot": 3, "ct_value": 25, "damage": 900, "damage_type": "laser" }
+      ]
+    },
+    {
+      "phase_id": "PHASE_4",
+      "phase_name": "赤フェーズ（ブリリアント）",
+      "hp_threshold_min": 0,
+      "hp_threshold_max": 25,
+      "ai_type": "AI3",
+      "ai_count": 3,
+      "description": "ブリリアントサファイアによるAIカウントスキップ発生。チャットによるAI補正必須。",
+      "priority_actions": ["AIズレ対応", "チャットでカウント共有", "玉処理徹底"],
+      "actions": [
+        { "name": "ブリリアントサファイア", "ai_slot": 1, "ct_value": 40, "damage": 0, "damage_type": "phase_trigger", "special": "ai_advance_2", "note": "AIカウント2消費" },
+        { "name": "通常攻撃", "ai_slot": 1, "ct_value": 0, "damage": 450, "damage_type": "physical" },
+        { "name": "ダブルジャッジメント", "ai_slot": 2, "ct_value": 30, "damage": 950, "damage_type": "ultimate", "mechanic": "scatter" },
+        { "name": "凶禍の分散", "ai_slot": 2, "ct_value": 25, "damage": 700, "damage_type": "split", "mechanic": "stack" },
+        { "name": "コールサファイア", "ai_slot": 3, "ct_value": 18, "damage": 0, "damage_type": "summon", "special": "no_turn_consume" },
+        { "name": "サファイアボム起爆", "ai_slot": 3, "ct_value": 35, "damage": 9999, "damage_type": "explosion", "note": "即死級" }
+      ]
+    }
+  ],
+  
+  "special_mechanics": {
+    "call_sapphire": {
+      "description": "コールサファイア: AIカウント消費するが、ターン（待機時間）を消費しない",
+      "ai_count_consume": 1,
+      "turn_consume": false,
+      "effect": "AI3でコールサファイア → 即座に次AI1へ移行"
+    },
+    "brilliant_sapphire": {
+      "description": "ブリリアントサファイア: AIカウントを2消費",
+      "ai_count_consume": 2,
+      "hp_trigger": 25,
+      "patterns": [
+        { "current_ai": 1, "result": "AI3終了扱い → 次サイクルAI1" },
+        { "current_ai": 2, "result": "次サイクルAI1へ" },
+        { "current_ai": 3, "result": "次サイクルAI2へ" }
+      ]
+    },
+    "sapphire_bomb": {
+      "explosion_range": 6,
+      "auto_explode_time": 120,
+      "note": "設置から約2分で自動爆発"
+    }
+  },
+  
+  "survivability_lines": {
+    "コバルトウェーブ_素耐え": { "hp": 1000, "note": "ラストチョーカー装備時" },
+    "コバルトウェーブ_やいば": { "hp": 1089 },
+    "コバルトウェーブ_アイギス": { "hp": 1162 },
+    "ファントムボール_素耐え": { "hp": 1042, "requires": "竜のうろこ等" },
+    "ダブルジャッジ_素耐え": { "hp": 1100, "requires": "竜のうろこ等" },
+    "魔蝕_素耐え": { "dark_resist": 19 },
+    "魔蝕_ヴェール": { "dark_resist": 0, "buff": "聖守護者のヴェール" }
+  },
+  
+  "positioning": {
+    "breath_angle": 180,
+    "safe_angle": { "min": 100, "max": 110, "note": "横殴り角度でブレス回避" },
+    "sapphire_safe_distance": 6,
+    "monzetsu_range": 8,
+    "souryu_range": 6
+  },
+  
+  "chat_triggers": {
+    "reset": ["AI1", "リセ", "reset", "リセット", "1"],
+    "ai_count": ["1", "2", "3", "止", "3終"],
+    "brilliant_warning": ["2進み", "次1", "ブリ"],
+    "description": "チャットでAIカウントを同期。ブリリアント発生時は即座に補正情報を発信。"
+  },
+  
+  "tactics": {
+    "wall_priority": "最優先。壁抜け防止のため補助壁意識。",
+    "attack_window": "AI3終了後の硬直が唯一の安全な攻撃窓口",
+    "forbidden": "AI1での通常攻撃に対して正面から双竜打ちを差し込む行為（AI2ファイナルレイ回避不能）",
+    "bomb_management": "外周固定、積極的な誘爆、反撃ターコイズ利用"
+  }
+}

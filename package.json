@@ -1,0 +1,75 @@
+{
+  "name": "dqx-battle-master-core---live-edition",
+  "description": "DQX Battle Master Core デスクトップアプリ",
+  "author": "tomoy",
+  "private": true,
+  "version": "3.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "clean": "rimraf dist release",
+    "build": "rimraf dist && vite build",
+    "preview": "vite preview",
+    "dev:desktop": "concurrently -k \"vite\" \"wait-on http://localhost:5173 && cross-env ELECTRON_START_URL=http://localhost:5173 electron electron/main.cjs\"",
+    "build:desktop": "rimraf dist release && vite build && electron-builder",
+    "pack:desktop": "rimraf dist release && vite build && electron-builder --dir"
+  },
+  "dependencies": {
+    "@google/genai": "^1.34.0",
+    "@tailwindcss/postcss": "^4.1.18",
+    "autoprefixer": "^10.4.23",
+    "electron-updater": "^6.6.2",
+    "postcss": "^8.5.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^5.1.2",
+    "concurrently": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "electron": "^40.0.0",
+    "electron-builder": "^26.0.12",
+    "rimraf": "^6.0.1",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0",
+    "wait-on": "^9.0.3"
+  },
+  "main": "electron/main.cjs",
+  "build": {
+    "appId": "com.dqx.battle-master.core",
+    "productName": "DQX Battle Master Core",
+    "icon": "assets/icon.ico",
+    "files": [
+      "dist/**",
+      "electron/**",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "assets",
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github"
+      }
+    ],
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "DQX Battle Master Core",
+      "language": "1041"
+    }
+  }
+}

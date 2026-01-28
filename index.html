@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BATTLE MASTER COMMAND CENTER</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Orbitron:wght@400;700;900&display=swap');
+
+        body {
+            background-color: #020408;
+            color: #00F2FF;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* オーバーレイモード用：背景を完全透明に */
+        body.overlay-mode {
+            background-color: transparent !important;
+            background: transparent !important;
+        }
+
+        body.overlay-mode .scanlines::before,
+        body.overlay-mode.scanlines::before {
+            display: none !important;
+        }
+        
+        h1, h2, h3, .font-display {
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 0.1em;
+        }
+
+        /* 走査線エフェクト */
+        .scanlines::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 100;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        @keyframes pulse-cyan {
+            0% { box-shadow: 0 0 5px #00F2FF; }
+            50% { box-shadow: 0 0 20px #00F2FF; }
+            100% { box-shadow: 0 0 5px #00F2FF; }
+        }
+
+        /* ダメージシェイク */
+        @keyframes shake {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-10px, -10px) rotate(-1deg); }
+            20% { transform: translate(10px, 5px) rotate(1deg); }
+            30% { transform: translate(-15px, 0px) rotate(-2deg); }
+            40% { transform: translate(15px, 10px) rotate(1deg); }
+            50% { transform: translate(-10px, -5px) rotate(-1deg); }
+            60% { transform: translate(5px, 15px) rotate(0deg); }
+            70% { transform: translate(-5px, -10px) rotate(1deg); }
+            80% { transform: translate(10px, 5px) rotate(-1deg); }
+            90% { transform: translate(-5px, 0px) rotate(0deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        /* エフェクト用アニメーション */
+        @keyframes damage-flash {
+            0% { opacity: 0; transform: scale(1.1); }
+            10% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(1.05); }
+        }
+
+        @keyframes hit-flash {
+            0% { opacity: 0; transform: scale(0.95); filter: brightness(1); }
+            20% { opacity: 0.8; transform: scale(1); filter: brightness(2); }
+            100% { opacity: 0; transform: scale(1.02); filter: brightness(1); }
+        }
+
+        @keyframes heal-glow {
+            0% { opacity: 0; transform: translateY(20px); }
+            30% { opacity: 0.6; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(-20px); }
+        }
+
+        .animate-shake { animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both; }
+        .glow-cyan { animation: pulse-cyan 2s infinite; }
+
+        ::-webkit-scrollbar { width: 2px; }
+        ::-webkit-scrollbar-track { background: #010204; }
+        ::-webkit-scrollbar-thumb { background: #00F2FF; }
+    </style>
+</head>
+<body class="scanlines">
+    <div id="root"></div>
+<script type="module" src="/index.tsx"></script>
+</body>
+</html>
