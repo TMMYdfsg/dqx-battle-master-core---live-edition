@@ -14,7 +14,8 @@ release
 release/**
 *.exe
 *.blockmap
-*.yml
+release/*.yml
+release/*.yaml
 *.local
 
 # Editor directories and files
