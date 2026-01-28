@@ -10,6 +10,11 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+release
+release/**
+*.exe
+*.blockmap
+*.yml
 *.local
 
 # Editor directories and files
